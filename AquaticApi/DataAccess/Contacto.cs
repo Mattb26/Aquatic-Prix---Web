@@ -33,7 +33,7 @@ namespace AquaticApi.DataAccess
                                 transaction.Commit();
                                 return true;
                             }
-                            catch (SqlException)
+                            catch (SqlException ex)
                             {
                                 transaction.Rollback();
                                 throw;

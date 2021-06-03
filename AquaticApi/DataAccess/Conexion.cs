@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace AquaticApi.DataAccess
 {
@@ -6,16 +8,25 @@ namespace AquaticApi.DataAccess
     {
         public static string StringConexion()
         {
-
+            string Conexion;
 
             try
             {
 
-                string Conexion = "Server=" + Environment.GetEnvironmentVariable("SQL_SERVICE") +
-                                       "; Database=" + Environment.GetEnvironmentVariable("SQL_DATABASE") +
-                                       "; User id=" + Environment.GetEnvironmentVariable("USERNAME_SQL") +
-                                       "; Password=" + Environment.GetEnvironmentVariable("PASSWORD_SQL") + ";";
+               
 
+                var builder = new ConfigurationBuilder()
+                       .SetBasePath(Directory.GetCurrentDirectory())
+                       .AddJsonFile("appsettings.json");
+
+                var configuration = builder.Build();
+
+                Conexion = "Server=" + configuration["Servidor"] +
+                            "; Database=" + configuration["BaseDatos"] +
+                            "; User id=" + configuration["Usuario"] +
+                            "; Password=" + configuration["Pass"] + ";";
+
+  
                 return Conexion;
             }
             catch (Exception)
