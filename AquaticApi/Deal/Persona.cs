@@ -4,22 +4,14 @@ namespace AquaticApi.Deal
 {
     public class Persona
     {
-        public bool Agregar(Models.Persona pers)
+        public bool Agregar(Models.PersonaUsuario pers)
         {
             DataAccess.Persona persona;
-            Models.PersonaUsuario personaUsuario;
             
             try
             {
-
-                personaUsuario = new Models.PersonaUsuario();
-                personaUsuario.Nombre = pers.Nombre;
-                personaUsuario.Apellido = pers.Apellido;
-                personaUsuario.CorreoElectronico = pers.CorreoElectronico;
-                personaUsuario.FechaNacimiento = pers.FechaNacimiento;
-
                 persona = new DataAccess.Persona();
-                return persona.Agregar(personaUsuario);
+                return persona.Agregar(pers);
             }
             catch (Exception)
             {
@@ -28,5 +20,20 @@ namespace AquaticApi.Deal
             }
         }
 
+        public Models.PersonaUsuario Login(Models.Usuario usuario)
+        {
+            DataAccess.Persona persona;
+
+            try
+            {
+                persona = new DataAccess.Persona();
+                return persona.Login(usuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

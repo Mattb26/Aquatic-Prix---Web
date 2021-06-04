@@ -37,10 +37,23 @@ namespace AquaticApi.Controllers
         [HttpPost("login")]
         public IActionResult Post([FromBody] Models.Usuario usuario) 
         {
+            Deal.Persona persona;
+            Models.PersonaUsuario personaUsuario; 
             try
             {
+                persona = new Deal.Persona();
+                personaUsuario = persona.Login(usuario);
 
-                return Ok();
+                if (personaUsuario != null)
+                {
+                    return Ok(personaUsuario);
+                }
+                else
+                {
+                    return BadRequest("Error al agregar los datos");
+                }
+
+
             }
             catch (Exception)
             {
