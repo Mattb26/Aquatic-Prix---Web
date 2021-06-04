@@ -13,8 +13,6 @@ namespace AquaticApi.DataAccess
             try
             {
 
-               
-
                 var builder = new ConfigurationBuilder()
                        .SetBasePath(Directory.GetCurrentDirectory())
                        .AddJsonFile("appsettings.json");
