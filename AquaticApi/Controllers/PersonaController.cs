@@ -33,5 +33,20 @@ namespace AquaticApi.Controllers
             }
 
         }
+
+        [HttpPost("login")]
+        public IActionResult Post([FromBody] Models.Usuario usuario) 
+        {
+            try
+            {
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
