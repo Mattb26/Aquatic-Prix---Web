@@ -10,7 +10,7 @@ namespace AquaticApi.Controllers
         [HttpPost()]
         public IActionResult Post([FromBody]Models.Contacto contacto)
         {
-            Deal.Contacto contac; ;
+            Deal.Contacto contac;
             try
             {
                 contac = new Deal.Contacto();

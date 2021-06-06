@@ -227,5 +227,68 @@ namespace AquaticApi.DataAccess
                 throw;
             }
         }
+
+        public bool ExisteUsuario(string usuario)
+        {
+            Models.PersonaUsuario personaUsuario;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.StringConexion()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_l_validar_usuario", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        try
+                        {
+
+                            cmd.Parameters.Add(new SqlParameter("@nombreUsuario ", usuario));
+
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    personaUsuario = new Models.PersonaUsuario();
+                                    reader.Read();
+
+                                    if (bool.Parse(reader["estado"].ToString()))
+                                    {
+                                        return true;
+                                    }
+                                    else 
+                                    {
+                                        return false;
+                                    }
+
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+
+
+                        }
+                        catch (SqlException)
+                        {
+                            //transaction.Rollback();
+                            throw;
+                        }
+                        catch (Exception)
+                        {
+                            //transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

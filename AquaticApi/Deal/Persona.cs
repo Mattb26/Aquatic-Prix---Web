@@ -35,5 +35,21 @@ namespace AquaticApi.Deal
                 throw;
             }
         }
+
+        public bool ExisteUsuario(string usuario)
+        {
+            DataAccess.Persona persona;
+
+            try
+            {
+                persona = new DataAccess.Persona();
+                return persona.ExisteUsuario(usuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
