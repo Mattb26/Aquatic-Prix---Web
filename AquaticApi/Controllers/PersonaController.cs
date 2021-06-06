@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AquaticApi.Controllers
 {
@@ -51,6 +52,34 @@ namespace AquaticApi.Controllers
                 else
                 {
                     return BadRequest("Error al agregar los datos");
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpGet("existe")]
+        public IActionResult Get([Required] string usuario)
+        {
+            Deal.Persona persona;
+            try
+            {
+                persona = new Deal.Persona();
+                
+
+                if (persona.ExisteUsuario(usuario))
+                {
+                   
+                    return BadRequest("El usuario " + usuario + ", ya existe, por favor aguregue otro usuario");
+                }
+                else
+                {
+                    return Ok("Usuario disponible");
                 }
 
 
