@@ -90,5 +90,35 @@ namespace AquaticApi.Controllers
                 throw;
             }
         }
+
+
+        [HttpGet("estadisticas")]
+        public IActionResult Get()
+        {
+            Deal.Estadistica estadistica;
+            try
+            {
+                estadistica = new Deal.Estadistica();
+
+
+
+                //if (persona.ExisteUsuario(usuario))
+                //{
+
+                //    return BadRequest("El usuario " + usuario + ", ya existe, por favor aguregue otro usuario");
+                //}
+                //else
+                //{
+                return Ok(estadistica.Listado());
+                //}
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
