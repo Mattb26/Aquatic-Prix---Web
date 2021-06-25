@@ -100,7 +100,7 @@ namespace AquaticApi.DataAccess
 
                         cmd.Parameters.Add(new SqlParameter("@nombreUsuario", usuario.NombreUsuario));
                         cmd.Parameters.Add(new SqlParameter("@clave", usuario.Clave));
-                        cmd.Parameters.Add(new SqlParameter("@estado", 1));
+                        cmd.Parameters.Add(new SqlParameter("@estado", usuario.Estado));
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
