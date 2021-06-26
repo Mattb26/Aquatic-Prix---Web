@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AquaticApi.Deal
 {
@@ -51,5 +53,46 @@ namespace AquaticApi.Deal
                 throw;
             }
         }
+
+        public IEnumerable<Models.PersonaUsuario> PersonaUsuariosListado(int codPerfil, int op) 
+        {
+            DataAccess.Persona persona;
+            IEnumerable<Models.PersonaUsuario> ilist;
+
+            try
+            {
+                persona = new DataAccess.Persona();
+                ilist = persona.PersonaUsuarioListado(op);
+
+                if (op == 2)//Listado de los cliente que juegan el juego
+                {
+                    return from list in ilist
+                           where list.Usuario.Estado == 1
+                           select list;
+                }
+
+                else if (codPerfil == 2)//Perfil Operador
+                {
+                    return from list in ilist
+                           where list.Usuario.Estado == 2
+                           select list; 
+                }
+                else if (codPerfil == 3)//Perfil Administrador
+                {
+                     return from list in ilist
+                            where list.Usuario.Estado == 2 || list.Usuario.Estado == 3
+                            select list;
+
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
     }
+
 }

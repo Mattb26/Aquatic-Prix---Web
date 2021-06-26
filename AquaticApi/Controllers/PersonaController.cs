@@ -100,18 +100,32 @@ namespace AquaticApi.Controllers
             {
                 estadistica = new Deal.Estadistica();
 
-
-
-                //if (persona.ExisteUsuario(usuario))
-                //{
-
-                //    return BadRequest("El usuario " + usuario + ", ya existe, por favor aguregue otro usuario");
-                //}
-                //else
-                //{
                 return Ok(estadistica.Listado());
-                //}
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpGet("usuario/perfil/{codPerfil}/opcion/{op}")]
+        public IActionResult Get([Required] int codPerfil, [Required] int op)
+        {
+            Deal.Persona persona;
+            try
+            {
+                if (codPerfil == 2 || codPerfil == 3)
+                {
+                    persona = new Deal.Persona();
+
+                    return Ok(persona.PersonaUsuariosListado(codPerfil, op));
+                }
+                else 
+                {
+                    return BadRequest("El código de perfil ingresado no existe");
+                }
 
             }
             catch (Exception)

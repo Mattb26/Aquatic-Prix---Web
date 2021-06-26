@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -266,6 +267,77 @@ namespace AquaticApi.DataAccess
                                 else
                                 {
                                     return false;
+                                }
+                            }
+
+
+                        }
+                        catch (SqlException)
+                        {
+                            //transaction.Rollback();
+                            throw;
+                        }
+                        catch (Exception)
+                        {
+                            //transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public IEnumerable<Models.PersonaUsuario> PersonaUsuarioListado(int op)
+        {
+            Models.PersonaUsuario personaUsuario;
+            List<Models.PersonaUsuario> listPersonaUsuario = new List<Models.PersonaUsuario>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.StringConexion()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_l_usuario_persona", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        try
+                        {
+                            cmd.Parameters.Add(new SqlParameter("@op", op));
+
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+
+
+                                    while (reader.Read())
+                                    {
+                                        personaUsuario = new Models.PersonaUsuario();
+                                        personaUsuario.IdPersona = Int32.Parse( reader["id"].ToString());
+                                        personaUsuario.Nombre = reader["nombre"].ToString();
+                                        personaUsuario.Apellido = reader["apellido"].ToString();
+                                        personaUsuario.CorreoElectronico = reader["correoElectronico"].ToString();
+                                        personaUsuario.FechaNacimiento = DateTime.Parse(reader["fechaNacimiento"].ToString());
+                                        personaUsuario.Usuario = new Models.Usuario();
+                                        personaUsuario.Usuario.IdUsuario = Int32.Parse(reader["idUsuario"].ToString());
+                                        personaUsuario.Usuario.NombreUsuario = reader["nombreUsuario"].ToString();
+                                        personaUsuario.Usuario.Estado = Int32.Parse(reader["estado"].ToString());
+
+                                        listPersonaUsuario.Add(personaUsuario);
+                                    }
+
+                                    return listPersonaUsuario;
+                                }
+                                else
+                                {
+                                    return null;
                                 }
                             }
 
