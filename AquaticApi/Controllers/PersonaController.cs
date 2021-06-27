@@ -134,5 +134,32 @@ namespace AquaticApi.Controllers
                 throw;
             }
         }
+
+        [HttpPut("clave")]
+        public IActionResult Put([Required] Models.UsuarioClave usuarioClave)
+        {
+            Deal.Persona persona;
+
+            try
+            {
+                persona = new Deal.Persona();
+
+                if (persona.CambioClave(usuarioClave))
+                {
+                    return Ok("Se realizó correctamente el cambio de clave");
+                }
+                else 
+                {
+                    return BadRequest("Error al realizar el cambio de clave");
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

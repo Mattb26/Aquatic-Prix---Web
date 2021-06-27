@@ -362,5 +362,62 @@ namespace AquaticApi.DataAccess
                 throw;
             }
         }
+
+        public bool CambioClave(Models.UsuarioClave usuarioClave)
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.StringConexion()))
+                {
+                    cn.Open();
+                    using (SqlTransaction transaction = cn.BeginTransaction())
+                    {
+                        using (SqlCommand cmd = new SqlCommand("sp_u_usuario_clave", cn, transaction))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            try
+                            {
+
+                                cmd.Parameters.Add(new SqlParameter("@idUsuario", usuarioClave.IdUsuario));
+                                cmd.Parameters.Add(new SqlParameter("@nombreUsuario", usuarioClave.NombreUsuario));
+                                cmd.Parameters.Add(new SqlParameter("@clave", usuarioClave.Clave));
+                                cmd.Parameters.Add(new SqlParameter("@claveNueva ", usuarioClave.ClaveNueva));
+
+                                int estado = cmd.ExecuteNonQuery();
+                                
+                                transaction.Commit();
+
+                                if (estado > 0)
+                                {
+                                    return true;
+                                }
+                                else 
+                                {
+                                    return false;
+                                }
+
+                                
+                                
+                            }
+                            catch (SqlException ex)
+                            {
+                                transaction.Rollback();
+                                return false;
+                            }
+                            catch (Exception)
+                            {
+                                transaction.Rollback();
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
