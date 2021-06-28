@@ -110,7 +110,7 @@ namespace AquaticApi.Controllers
             }
         }
 
-        [HttpGet("usuario/perfil/{codPerfil}/opcion/{op}")]
+        [HttpGet("perfil/{codPerfil}/opcion/{op}")]
         public IActionResult Get([Required] int codPerfil, [Required] int op)
         {
             Deal.Persona persona;
