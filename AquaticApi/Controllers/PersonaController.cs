@@ -91,6 +91,23 @@ namespace AquaticApi.Controllers
             }
         }
 
+        [HttpGet("{idUsuario}/estadisticas")]
+        public IActionResult Get([Required] Int32 idUsuario)
+        {
+            Deal.Estadistica estadistica;
+            try
+            {
+                estadistica = new Deal.Estadistica();
+
+                return Ok(estadistica.Listado(idUsuario));
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         [HttpGet("estadisticas")]
         public IActionResult Get()

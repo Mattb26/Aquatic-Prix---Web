@@ -7,10 +7,11 @@ namespace AquaticApi.DataAccess
 {
     public class Estadisticas
     {
-        public IList<Models.Estadisticas> Listado()
+        public IEnumerable<Models.Estadisticas> Listado()
         {
             Models.Estadisticas estadisticas;
             IList<Models.Estadisticas> listEstadisticas = new List<Models.Estadisticas>();
+
             try
             {
                 using (SqlConnection cn = new SqlConnection(Conexion.StringConexion()))
@@ -32,6 +33,7 @@ namespace AquaticApi.DataAccess
                                     while (reader.Read())
                                     {
                                         estadisticas = new Models.Estadisticas();
+                                        estadisticas.idUsuario = Int32.Parse(reader["idUsuario"].ToString());
                                         estadisticas.NombreUsuario = reader["nombreUsuario"].ToString();
                                         estadisticas.Perdido = Int32.Parse(reader["perdido"].ToString());
                                         estadisticas.Posicion = Int32.Parse(reader["posicion"].ToString());
