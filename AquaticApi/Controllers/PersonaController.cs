@@ -91,6 +91,23 @@ namespace AquaticApi.Controllers
             }
         }
 
+        [HttpGet("{idUsuario}/estadisticas")]
+        public IActionResult Get([Required] Int32 idUsuario)
+        {
+            Deal.Estadistica estadistica;
+            try
+            {
+                estadistica = new Deal.Estadistica();
+
+                return Ok(estadistica.Listado(idUsuario));
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         [HttpGet("estadisticas")]
         public IActionResult Get()
@@ -110,7 +127,7 @@ namespace AquaticApi.Controllers
             }
         }
 
-        [HttpGet("usuario/perfil/{codPerfil}/opcion/{op}")]
+        [HttpGet("perfil/{codPerfil}/opcion/{op}")]
         public IActionResult Get([Required] int codPerfil, [Required] int op)
         {
             Deal.Persona persona;
@@ -126,6 +143,33 @@ namespace AquaticApi.Controllers
                 {
                     return BadRequest("El código de perfil ingresado no existe");
                 }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPut("clave")]
+        public IActionResult Put([Required] Models.UsuarioClave usuarioClave)
+        {
+            Deal.Persona persona;
+
+            try
+            {
+                persona = new Deal.Persona();
+
+                if (persona.CambioClave(usuarioClave))
+                {
+                    return Ok("Se realizó correctamente el cambio de clave");
+                }
+                else 
+                {
+                    return BadRequest("Error al realizar el cambio de clave");
+                }
+
 
             }
             catch (Exception)

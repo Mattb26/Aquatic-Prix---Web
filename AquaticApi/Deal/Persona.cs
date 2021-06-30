@@ -93,6 +93,21 @@ namespace AquaticApi.Deal
             }
         }
 
+        public bool CambioClave(Models.UsuarioClave usuarioClave)
+        {
+            DataAccess.Persona persona;
+
+            try
+            {
+                persona = new DataAccess.Persona();
+                return persona.CambioClave(usuarioClave);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 
 }
