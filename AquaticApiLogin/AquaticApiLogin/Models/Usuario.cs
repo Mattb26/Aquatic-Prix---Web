@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaticApiLogin.Models
 {
@@ -11,10 +8,12 @@ namespace AquaticApiLogin.Models
         public Int32 IdUsuario { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string NombreUsuario { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [MaxLength(100)]
         public string Clave { get; set; }
         public int Estado { get; set; }
     }

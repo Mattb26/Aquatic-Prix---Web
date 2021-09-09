@@ -45,5 +45,25 @@ namespace AquaticApiLogin.Controllers.v1
                 throw;
             }
         }
+
+        [HttpPut()]
+        public IActionResult Put([FromBody] Models.UsuarioClave usuario)
+        {
+            //Ver bcrypt
+            //PBKDF2
+            try
+            {
+                 _login.CambioClave(usuario);
+
+                return Ok();
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
