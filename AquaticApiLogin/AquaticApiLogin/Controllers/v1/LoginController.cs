@@ -1,6 +1,9 @@
 ﻿using AquaticApiLogin.Servicios;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 
 namespace AquaticApiLogin.Controllers.v1
 {
@@ -43,6 +46,7 @@ namespace AquaticApiLogin.Controllers.v1
         }
 
         [HttpPut()]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Put([FromBody] Models.UsuarioClave usuario)
         {
             //Ver bcrypt

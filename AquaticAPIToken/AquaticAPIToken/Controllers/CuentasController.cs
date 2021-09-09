@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AquaticAPIToken.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -83,6 +84,30 @@ namespace AquaticAPIToken.Controllers
                 throw;
             }
         }
+
+        [HttpGet()]
+        public async Task<ActionResult<Models.RespuestaAutenticacion>> RenovarToken()
+        {
+            try
+            {
+
+                //Se bloquea el usuario si no ingresa correctamente la clave con lockoutOnFailure
+                var emailClaim = HttpContext.User.Claims.Where(claim => claim.Type == "email").FirstOrDefault();
+                var email = emailClaim.Value;
+                var credencialesUsuario = new CredencialesUsuario()
+                {
+                    Email = email
+                };
+
+                return await ConstruirToken(credencialesUsuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private Models.RespuestaAutenticacion RespuestaAutenticacion(Models.CredencialesUsuario credencialesUsuario)
         {
             try
@@ -110,6 +135,32 @@ namespace AquaticAPIToken.Controllers
             }
         }
 
+        private async Task<RespuestaAutenticacion> ConstruirToken(CredencialesUsuario credencialesUsuario)
+        {
+            var claims = new List<Claim>()
+            {
+                new Claim("email", credencialesUsuario.Email),
+                new Claim("lo que yo quiera", "cualquier otro valor")
+            };
 
+            var usuario = await _userManager.FindByEmailAsync(credencialesUsuario.Email);
+            var claimsDB = await _userManager.GetClaimsAsync(usuario);
+
+            claims.AddRange(claimsDB);
+
+            var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["llavejwt"]));
+            var creds = new SigningCredentials(llave, SecurityAlgorithms.HmacSha256);
+
+            var expiracion = DateTime.UtcNow.AddYears(1);
+
+            var securityToken = new JwtSecurityToken(issuer: null, audience: null, claims: claims,
+                expires: expiracion, signingCredentials: creds);
+
+            return new RespuestaAutenticacion()
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
+                Expiracion = expiracion
+            };
+        }
     }
 }
