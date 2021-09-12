@@ -1,5 +1,6 @@
 ﻿using AquaticAPIUsuario.IServicios;
 using AquaticAPIUsuario.ModelsSQL;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
@@ -8,10 +9,12 @@ namespace AquaticAPIUsuario.DataAcces
     public class Personas : IPersonasData
     {
         private readonly AquaticPrixContext _aquaticPrixContext;
+        private readonly ILogger<Personas> _logger;
 
-        public Personas(AquaticPrixContext aquaticPrixContext)
+        public Personas(ILogger<Personas> logger, AquaticPrixContext aquaticPrixContext)
         {
             _aquaticPrixContext = aquaticPrixContext;
+            _logger = logger;
         }
 
         public int Agregar(ModelsSQL.Persona persona)
@@ -22,9 +25,9 @@ namespace AquaticAPIUsuario.DataAcces
                 _aquaticPrixContext.SaveChanges();
                 return persona.Id;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _logger.LogError("", ex);
                 throw;
             }
 
@@ -34,14 +37,24 @@ namespace AquaticAPIUsuario.DataAcces
         {
             try
             {
-                return _aquaticPrixContext.Personas.Where(x => x.Nombre == persona.Nombre &&
+                var pers = _aquaticPrixContext.Personas.Where(x => x.Nombre == persona.Nombre &&
                                                                 x.Apellido == persona.Apellido &&
                                                                 x.FechaNacimiento == persona.FechaNacimiento && 
-                                                                x.FechaBaja!=null).FirstOrDefault().Id;
-            }
-            catch (Exception)
-            {
+                                                                x.FechaBaja!=null).FirstOrDefault();
 
+                if (pers != null)
+                {
+                    return pers.Id;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
                 throw;
             }
         }
@@ -50,14 +63,24 @@ namespace AquaticAPIUsuario.DataAcces
         {
             try
             {
-                return _aquaticPrixContext.Personas.Where(x => x.Nombre == persona.Nombre && 
+                var pers = _aquaticPrixContext.Personas.Where(x => x.Nombre == persona.Nombre && 
                                                                 x.Apellido == persona.Apellido && 
                                                                 x.FechaNacimiento == persona.FechaNacimiento &&
-                                                                x.FechaBaja == null).FirstOrDefault().Id;
-            }
-            catch (Exception)
-            {
+                                                                x.FechaBaja == null).FirstOrDefault();
 
+                if (pers != null)
+                {
+                    return pers.Id;
+                }
+                else 
+                {
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
                 throw;
             }
         }

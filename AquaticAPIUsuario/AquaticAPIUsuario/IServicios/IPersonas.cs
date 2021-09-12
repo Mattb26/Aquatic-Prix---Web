@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaticAPIUsuario.IServicios
 {
@@ -13,6 +10,8 @@ namespace AquaticAPIUsuario.IServicios
     }
     public interface IPersonas
     {
-
+        bool Agregar(Models.PersonaUsuario personaUsuario);
+        bool Existe(string usuario);
     }
+
 }

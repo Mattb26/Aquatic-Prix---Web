@@ -1,3 +1,4 @@
+using AquaticAPIUsuario.IServicios;
 using AquaticAPIUsuario.ModelsSQL;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,11 @@ namespace AquaticAPIUsuario
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddScoped<IPersonas, Deal.Persona>();
+            services.AddScoped<IPersonasData, DataAcces.Personas>();
+            services.AddScoped<IUsuariosDatos, DataAcces.Usuario>();
+            services.AddScoped<IPersonaUsuario, DataAcces.PersonaUsuario>();
+
             services.AddDbContext<AquaticPrixContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddHealthChecks()

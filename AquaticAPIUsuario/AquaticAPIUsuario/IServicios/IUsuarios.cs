@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaticAPIUsuario.IServicios
 {
@@ -10,6 +7,7 @@ namespace AquaticAPIUsuario.IServicios
         Int32 Agregar(ModelsSQL.Usuario usuario);
         Int32 Existe(ModelsSQL.Usuario usuario);
         Int32 BajaExiste(ModelsSQL.Usuario usuario);
+        Int32 Existe(string usuario);
     }
     public interface IUsuarios
     {

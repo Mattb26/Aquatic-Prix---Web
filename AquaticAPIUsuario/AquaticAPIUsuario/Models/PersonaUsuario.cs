@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AquaticAPIUsuario.Models
+﻿namespace AquaticAPIUsuario.Models
 {
-    public class PersonaUsuario
+    public class PersonaUsuario:Persona
     {
         public Usuario Usuario { get; set; }
     }

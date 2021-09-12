@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AquaticAPIUsuario.IServicios;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace AquaticAPIUsuario.Controllers
 {
@@ -11,27 +10,55 @@ namespace AquaticAPIUsuario.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private readonly IPersonas _personas;
+        private readonly ILogger<UsuarioController> _logger;
+
+        public UsuarioController(IPersonas personas, ILogger<UsuarioController> logger)
+        {
+            this._personas = personas;
+            _logger = logger;
+        }
+
         [HttpPost()]
         public IActionResult Post([FromBody] Models.PersonaUsuario personaUsuario)
         {
-            Deal.Persona persona;
+
             try
             {
-                persona = new Deal.Persona();
-
-                //if (persona.Agregar(personaUsuario))
-                //{
-                //    return Ok();
-                //}
-                //else
-                //{
-                //    return BadRequest("Error al agregar los datos");
-                //}
-                return Ok();
+                if (_personas.Agregar(personaUsuario))
+                {
+                    return Ok();
+                }
+                else 
+                {
+                    return BadRequest("Por favor verifique sus datos");
+                }
+                
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError("", ex);
+                throw;
+            }
+
+        }
+        [HttpGet("existe")]
+        public IActionResult Get([Required] string usuario)
+        {
+            bool resultado = false;
+
+            try
+            {
+                resultado = _personas.Existe(usuario);
+
+                return Ok(resultado);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
 
                 throw;
             }
