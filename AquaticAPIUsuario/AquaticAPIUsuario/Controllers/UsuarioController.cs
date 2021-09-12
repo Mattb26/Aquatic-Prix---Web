@@ -46,7 +46,7 @@ namespace AquaticAPIUsuario.Controllers
         [HttpGet("existe")]
         public IActionResult Get([Required] string usuario)
         {
-            bool resultado = false;
+            bool resultado;
 
             try
             {
