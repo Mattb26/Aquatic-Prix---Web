@@ -30,6 +30,8 @@ namespace AquaticAPIUsuario
             services.AddScoped<IPersonasData, DataAcces.Personas>();
             services.AddScoped<IUsuariosDatos, DataAcces.Usuario>();
             services.AddScoped<IPersonaUsuario, DataAcces.PersonaUsuario>();
+            services.AddScoped<IMailDato, DataAcces.Mail>();
+            services.AddScoped<IMail, Deal.Correo>();
 
             services.AddDbContext<AquaticPrixContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
