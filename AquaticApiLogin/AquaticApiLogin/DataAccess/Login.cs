@@ -51,5 +51,22 @@ namespace AquaticApiLogin.DataAccess
                 throw;
             }
         }
+
+        public bool CambioClave(ModelsSQL.Usuario usuario )
+        {
+            try
+            {
+                 _aquaticPrixContext.Entry(usuario).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                Console.WriteLine(_aquaticPrixContext.ChangeTracker.DebugView.LongView);
+                _aquaticPrixContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

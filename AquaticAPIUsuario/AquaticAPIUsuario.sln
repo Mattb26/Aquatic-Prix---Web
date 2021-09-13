@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaticAPIUsuario", "AquaticAPIUsuario\AquaticAPIUsuario.csproj", "{FE20D637-733E-43D3-803A-90CD15F609EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE20D637-733E-43D3-803A-90CD15F609EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE20D637-733E-43D3-803A-90CD15F609EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE20D637-733E-43D3-803A-90CD15F609EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE20D637-733E-43D3-803A-90CD15F609EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F24F853A-1567-4501-A36D-8C2819F76874}
+	EndGlobalSection
+EndGlobal

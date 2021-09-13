@@ -1,10 +1,9 @@
 ﻿using AquaticApiLogin.Servicios;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace AquaticApiLogin.Controllers.v1
 {
@@ -38,6 +37,27 @@ namespace AquaticApiLogin.Controllers.v1
                 }
 
                 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPut()]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult Put([FromBody] Models.UsuarioClave usuario)
+        {
+            //Ver bcrypt
+            //PBKDF2
+            try
+            {
+                 _login.CambioClave(usuario);
+
+                return Ok();
+
+
             }
             catch (Exception)
             {

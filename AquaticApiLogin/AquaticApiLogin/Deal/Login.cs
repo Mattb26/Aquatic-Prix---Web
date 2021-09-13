@@ -1,8 +1,4 @@
 ﻿using AquaticApiLogin.Servicios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaticApiLogin.Deal
 {
@@ -48,5 +44,20 @@ namespace AquaticApiLogin.Deal
 
             return personaUsuario;
         }
+
+        public bool CambioClave(Models.UsuarioClave usuario)
+        {
+
+            ModelsSQL.Usuario user = _loginData.ValidarUsuario(usuario.NombreUsuario, usuario.Clave);
+
+            if (user != null)
+            {
+                user.Clave = usuario.NuevaClave;
+                _loginData.CambioClave(user);
+            }
+
+            return true;
+        }
+
     }
 }
