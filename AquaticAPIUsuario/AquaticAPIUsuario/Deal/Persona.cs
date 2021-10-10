@@ -3,7 +3,6 @@ using AquaticAPIUsuario.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AquaticAPIUsuario.Deal
 {
@@ -43,7 +42,9 @@ namespace AquaticAPIUsuario.Deal
                 usuario = new ModelsSQL.Usuario
                 {
                     NombreUsuario = personaUsuario.Usuario.NombreUsuario,
-                    Clave = personaUsuario.Usuario.Clave
+                    Clave = personaUsuario.Usuario.Clave,
+                    Estado = personaUsuario.Usuario.Estado
+
                 };
 
                 if ((_personasData.Existe(persona) == 0) && (_usuariosDatos.Existe(usuario) == 0))
