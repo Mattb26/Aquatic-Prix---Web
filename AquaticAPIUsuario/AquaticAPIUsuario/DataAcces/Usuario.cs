@@ -128,7 +128,8 @@ namespace AquaticAPIUsuario.DataAcces
                         Usuario = new Models.Usuario
                         {
                             IdUsuario = item.IdUsuario,
-                            NombreUsuario = item.NombreUsuario
+                            NombreUsuario = item.NombreUsuario,
+                            Estado = item.Estado
                         }
                     };
 
@@ -185,7 +186,8 @@ namespace AquaticAPIUsuario.DataAcces
                         Usuario = new Models.Usuario
                         {
                             IdUsuario = item.IdUsuario,
-                            NombreUsuario = item.NombreUsuario
+                            NombreUsuario = item.NombreUsuario,
+                            Estado = item.Estado
                         }
                     };
 
