@@ -2,6 +2,8 @@
 using AquaticAPIUsuario.Models;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AquaticAPIUsuario.Deal
 {
@@ -109,6 +111,51 @@ namespace AquaticAPIUsuario.Deal
             }
         }
 
+        public IEnumerable<Models.PersonaUsuario> Listado(int codPerfil, int op)
+        {
+            //IEnumerable<Models.PersonaUsuario> ilist;
 
+            try
+            {
+                //ilist = new List<Models.PersonaUsuario>();
+
+                //_usuariosDatos.ListadoAdministrador();
+
+
+                if (op == 2)//Listado de los cliente que juegan el juego
+                {
+                    //return from list in ilist
+                    //       where list.Usuario.Estado == 1
+                    //       select list;
+
+                    return _usuariosDatos.ListadoUsuario();
+                }
+
+                else if (codPerfil == 2)//Perfil Operador
+                {
+                    //return from list in ilist
+                    //       where list.Usuario.Estado == 2
+                    //       select list;
+                    return _usuariosDatos.ListadoOperador();
+                }
+                else if (codPerfil == 3)//Perfil Administrador
+                {
+                    //return from list in ilist
+                    //       where list.Usuario.Estado == 2 || list.Usuario.Estado == 3
+                    //       select list;
+                    return _usuariosDatos.ListadoAdministrador();
+                }
+                return null;
+
+
+
+                //return ilist;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw;
+            }
+        }
     }
 }

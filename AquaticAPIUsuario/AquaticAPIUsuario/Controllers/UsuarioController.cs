@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AquaticAPIUsuario.Controllers
@@ -29,11 +30,11 @@ namespace AquaticAPIUsuario.Controllers
                 {
                     return Ok();
                 }
-                else 
+                else
                 {
                     return BadRequest("Por favor verifique sus datos");
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -65,5 +66,37 @@ namespace AquaticAPIUsuario.Controllers
 
         }
 
+        [HttpGet("perfil/{codPerfil}/opcion/{op}")]
+        public IActionResult Get([Required] int codPerfil, [Required] int op) 
+        {
+            
+
+            try
+            {
+                if (codPerfil == 2 || codPerfil == 3)
+                {
+                    IEnumerable<Models.PersonaUsuario> list = _personas.Listado(codPerfil, op);
+                    if (list != null)
+                    {
+                        return Ok(list);
+                    }
+                    else 
+                    {
+                        return BadRequest("Sin registros");
+                    }
+
+                }
+                else
+                {
+                    return BadRequest("El código de perfil ingresado no existe");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw;
+            }
+        }
     }
 }

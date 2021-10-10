@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AquaticAPIUsuario.IServicios
 {
@@ -12,6 +13,7 @@ namespace AquaticAPIUsuario.IServicios
     {
         bool Agregar(Models.PersonaUsuario personaUsuario);
         bool Existe(string usuario);
+        IEnumerable<Models.PersonaUsuario> Listado(int codPerfil, int op);
     }
 
 }
