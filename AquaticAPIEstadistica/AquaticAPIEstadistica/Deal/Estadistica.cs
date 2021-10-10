@@ -1,8 +1,6 @@
 ﻿using AquaticAPIEstadistica.IServicios;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaticAPIEstadistica.Deal
 {
@@ -15,11 +13,11 @@ namespace AquaticAPIEstadistica.Deal
             _estadistica = estadistica;
         }
 
-        public void Listado() 
+        public IEnumerable<Models.Estadisticas> Listado() 
         {
             try
             {
-                _estadistica.Listado();
+                return _estadistica.Listado();
             }
             catch (Exception)
             {
@@ -28,11 +26,11 @@ namespace AquaticAPIEstadistica.Deal
             }
         }
 
-        public void Listado(Int32 idUsuario)
+        public IEnumerable<Models.Estadisticas> Listado(Int32 idUsuario)
         {
             try
             {
-                _estadistica.Listado();
+                return _estadistica.Listado(idUsuario);
             }
             catch (Exception)
             {

@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AquaticAPIEstadistica.IServicios
 {
     public interface IEstadistica
     {
-        void Listado();
-        void Listado(Int32 idUsuario);
+        IEnumerable<Models.Estadisticas> Listado();
+        IEnumerable<Models.Estadisticas> Listado(Int32 idUsuario);
 
     }
     public interface IEstadisticaDeal
     {
-        void Listado();
-        void Listado(Int32 idUsuario);
+        IEnumerable<Models.Estadisticas> Listado();
+        IEnumerable<Models.Estadisticas> Listado(Int32 idUsuario);
 
     }
 }

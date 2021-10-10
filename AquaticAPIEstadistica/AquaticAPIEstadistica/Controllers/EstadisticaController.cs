@@ -1,16 +1,13 @@
 ﻿using AquaticAPIEstadistica.IServicios;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AquaticAPIEstadistica.Controllers
 {
-    
-         
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class EstadisticaController : ControllerBase
@@ -26,13 +23,19 @@ namespace AquaticAPIEstadistica.Controllers
         [HttpGet("{idUsuario}/estadisticas")]
         public IActionResult Get([Required] Int32 idUsuario)
         {
-            //Deal.Estadistica estadistica;
+            IEnumerable<Models.Estadisticas> estadistica;
             try
             {
-                //estadistica = new Deal.Estadistica();
-                _estadisticaDeal.Listado();
+                estadistica = _estadisticaDeal.Listado(idUsuario);
 
-                return Ok();
+                if (estadistica != null)
+                {
+                    return Ok(estadistica);
+                }
+                else 
+                {
+                    return BadRequest("Sin registros");
+                }
 
             }
             catch (Exception)
@@ -45,12 +48,20 @@ namespace AquaticAPIEstadistica.Controllers
         [HttpGet("estadisticas")]
         public IActionResult Get()
         {
-            //Deal.Estadistica estadistica;
+            IEnumerable<Models.Estadisticas> estadistica;
             try
             {
-                //estadistica = new Deal.Estadistica();
-                _estadisticaDeal.Listado();
-                return Ok();
+
+                estadistica = _estadisticaDeal.Listado();
+
+                if (estadistica != null)
+                {
+                    return Ok(estadistica);
+                }
+                else
+                {
+                    return BadRequest("Sin registros");
+                }
 
             }
             catch (Exception)
