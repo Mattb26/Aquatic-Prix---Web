@@ -21,9 +21,4 @@
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-    <Folder Include="Deal\" />
-  </ItemGroup>
 </Project>

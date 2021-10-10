@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AquaticAPIEstadistica.IServicios;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,20 @@ using System.Threading.Tasks;
 
 namespace AquaticAPIEstadistica.Controllers
 {
+    
+         
     [Route("api/[controller]")]
     [ApiController]
     public class EstadisticaController : ControllerBase
     {
+
+        private readonly IEstadisticaDeal _estadisticaDeal;
+
+        public EstadisticaController(IEstadisticaDeal estadisticaDeal)
+        {
+            _estadisticaDeal = estadisticaDeal;
+        }
+
         [HttpGet("{idUsuario}/estadisticas")]
         public IActionResult Get([Required] Int32 idUsuario)
         {
@@ -19,6 +30,7 @@ namespace AquaticAPIEstadistica.Controllers
             try
             {
                 //estadistica = new Deal.Estadistica();
+                _estadisticaDeal.Listado();
 
                 return Ok();
 
@@ -37,7 +49,7 @@ namespace AquaticAPIEstadistica.Controllers
             try
             {
                 //estadistica = new Deal.Estadistica();
-
+                _estadisticaDeal.Listado();
                 return Ok();
 
             }

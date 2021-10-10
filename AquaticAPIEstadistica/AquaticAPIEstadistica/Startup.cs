@@ -1,3 +1,4 @@
+using AquaticAPIEstadistica.IServicios;
 using AquaticAPIEstadistica.ModelsSQL;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,11 @@ namespace AquaticAPIEstadistica
 
             services.AddDbContext<AquaticPrixContext>(options => 
                                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IEstadistica, DataAccess.Estadistica>();
+            services.AddScoped<IEstadisticaDeal, Deal.Estadistica>();
+
+
 
             services.AddHealthChecks()
             .AddCheck("AquaticAPIEstadistica", () => HealthCheckResult.Healthy())
