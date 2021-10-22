@@ -419,5 +419,73 @@ namespace AquaticApi.DataAccess
                 throw;
             }
         }
+
+        public IEnumerable<Models.UsuarioPersona> PersonaUsuarioListado()
+        {
+            Models.UsuarioPersona personaUsuario;
+            List<Models.UsuarioPersona> listPersonaUsuario = new List<Models.UsuarioPersona>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.StringConexion()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_l_Persona", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        try
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+
+
+                                    while (reader.Read())
+                                    {
+                                        personaUsuario = new Models.UsuarioPersona();
+                                        personaUsuario.IdPersona = Int32.Parse(reader["id"].ToString());
+                                        personaUsuario.Nombre = reader["nombre"].ToString();
+                                        personaUsuario.Apellido = reader["apellido"].ToString();
+                                        personaUsuario.CorreoElectronico = reader["correoElectronico"].ToString();
+                                        personaUsuario.FechaNacimiento = DateTime.Parse(reader["fechaNacimiento"].ToString());
+                                        //personaUsuario.Usuario = new Models.Usuario();
+                                        //personaUsuario.Usuario.IdUsuario = Int32.Parse(reader["idUsuario"].ToString());
+                                        personaUsuario.NombreUsuario = reader["nombreUsuario"].ToString();
+                                        //personaUsuario.Usuario.Estado = Int32.Parse(reader["estado"].ToString());
+
+                                        listPersonaUsuario.Add(personaUsuario);
+                                    }
+
+                                    return listPersonaUsuario;
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            }
+
+
+                        }
+                        catch (SqlException)
+                        {
+                            //transaction.Rollback();
+                            throw;
+                        }
+                        catch (Exception)
+                        {
+                            //transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

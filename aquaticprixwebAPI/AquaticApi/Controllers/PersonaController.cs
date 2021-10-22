@@ -109,6 +109,23 @@ namespace AquaticApi.Controllers
             }
         }
 
+        [HttpGet("usuario")]
+        public IActionResult GetUsuario()
+        {
+            Deal.Persona persona;
+            try
+            {
+                persona = new Deal.Persona();
+                return Ok(persona.PersonaUsuariosListado());
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpGet("estadisticas")]
         public IActionResult Get()
         {

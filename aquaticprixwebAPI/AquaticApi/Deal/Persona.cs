@@ -108,6 +108,22 @@ namespace AquaticApi.Deal
                 throw;
             }
         }
+
+        public IEnumerable<Models.UsuarioPersona> PersonaUsuariosListado()
+        {
+            DataAccess.Persona persona;
+
+            try
+            {
+                persona = new DataAccess.Persona();
+                return persona.PersonaUsuarioListado();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 
 }
